@@ -35,3 +35,9 @@ export interface PropertyProps{
   image : string;
   discount : string;
 }
+
+export interface PillProps {
+  label: string;
+  isActive: boolean;
+  onClick: () => void;
+}

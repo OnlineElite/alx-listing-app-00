@@ -2,6 +2,40 @@
 import {PropertyProps} from "@/interfaces"
 export const APP_NAME = 'ALX Listing App';
 export const DEFAULT_LANGUAGE = 'en';
+
+// Hero Background Image
+export const HERO_BACKGROUND_IMAGE = '/assets/hero.jpg';
+
+// Filter Labels
+export const FILTERS = [
+  'Top Villa',
+  'Self Checkin',
+  'Pet Friendly',
+  'Instant Book',
+  'Beach Front',
+  'Mountain View',
+  'City Center',
+  'Luxury',
+  'Budget Friendly',
+  'Family Friendly'
+];
+
+// Property Types
+export const PROPERTY_TYPES = [
+  'Villa',
+  'Apartment',
+  'Cabin',
+  'Cottage',
+  'Penthouse',
+  'Lodge',
+  'Mansion',
+  'Loft',
+  'Bungalow',
+  'Studio',
+  'Townhouse'
+];
+
+// Sample Property Listings
 export const PROPERTYLISTINGSAMPLE: PropertyProps []  =  [
   {
     name: "Villa Ocean Breeze",

@@ -1,20 +1,67 @@
 import {PropertyProps} from "@/interfaces"
 import Image from "next/image"
+import { StarIcon } from 'lucide-react';
+
 const Card : React.FC<PropertyProps> = ({name, address, rating, category, price, offers, image, discount})=>{
 
+    const renderStars = (rating: number) => {
+        const stars = [];
+        const fullStars = Math.floor(rating);
+        const hasHalfStar = rating % 1 !== 0;
+
+        for (let i = 0; i < fullStars; i++) {
+        stars.push(
+            <StarIcon key={i} className="h-4 w-4 text-yellow-400 fill-current" />
+        );
+        }
+
+        if (hasHalfStar) {
+        stars.push(
+            <div key="half" className="relative">
+            <StarIcon className="h-4 w-4 text-gray-300 fill-current" />
+            <div className="absolute inset-0 overflow-hidden w-1/2">
+                <StarIcon className="h-4 w-4 text-yellow-400 fill-current" />
+            </div>
+            </div>
+        );
+        }
+
+        const remainingStars = 5 - Math.ceil(rating);
+        for (let i = 0; i < remainingStars; i++) {
+        stars.push(
+            <StarIcon key={`empty-${i}`} className="h-4 w-4 text-gray-300 fill-current" />
+        );
+        }
+
+        return stars;
+    };
+
     return(
-        <div className="bg-slate-900 text-white p-3 flex flex-col justify-between items-center rounded-xl">
-            
-                <Image className="w-full h-80" src={image}  alt="Default image" width= "100" height= "100" />
-            
-            <div className="text-white h-auto w-full  ">
-                <p className="">Name : <span className="text-yellow-300 italic">{name}</span></p>
-                <p className="">Address : <span className="text-yellow-300 italic">{address.city}</span></p>
-                <p className="">Rating : <span className="text-yellow-300 italic">{rating}</span></p>
-                <p className="">Category : <span className="text-yellow-300 italic">{category}</span></p>
-                <p className="">Price : <span className="text-yellow-300 italic">{price}</span></p>
-                <p className="">Offers : <span className="text-yellow-300 italic">{offers.bed}</span></p>
-                <p className="">Discount : <span className="text-yellow-300 italic">{discount}</span></p>
+        <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer">
+            <div className="relative h-48 overflow-hidden">
+                <Image src={image}  alt={name} width={100} height={100}
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"/>
+            </div>
+            <div className="p-4">
+                <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-1">{name}</h3>
+                <div className="flex justify-between items-center">
+                {address && (<p className="text-sm text-gray-600 mb-2">{address.city}, {address.country} </p>)}
+                {/* {offers? <span className="text-sm text-gray-600">{offers.bed} Bed | {offers.occupants} Occupants | {offers.shower} Shower </span> : ""} */}
+                </div>
+                <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center space-x-1">
+                        {renderStars(rating)}
+                        <span className="text-sm text-gray-600 ml-1">({rating})</span>
+                    </div>
+                    {category && (<span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">{category}</span>)}
+                </div>
+                <div className="flex items-center justify-between">
+                    <span className="text-2xl font-bold text-blue-600">
+                        ${price}
+                        <span className="text-sm font-normal text-gray-600">/night</span>
+                    </span>
+                    {discount? <span>Discount <span className="text-green-600 font-bold">{discount}%</span></span> : ""}
+                </div>
             </div>
         </div>
     )
